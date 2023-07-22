@@ -1,0 +1,45 @@
+seed: 12 # random seed, I use seeds=(12 34 56 78 90) in my experiments
+debug: 0 # 1 to debug; 0 to normal run
+loss: ce # loss function, choose from ['ce', 'poe', 'focal']
+shuffle_times: 5 # number of shuffled samples
+
+# debias 
+n_gram: 1 # use `n_gram` words as a unit for shuffling
+
+# default parameters for DFL loss
+alpha: 1.0
+gamma: 2.0
+
+# default parameters for PoE loss
+poe_alpha: 1.0
+clip: 0.0001 # clip the softmax output for numerical stability
+
+# model and folder
+base_folder: exp-mnli-test # checkpoints will be stored at base_folder/seed/
+tokenizer: auto 
+bert_version: /home/data_ti4_c/oyyw/pretrained/bert-base-uncased
+rep: cls # the representation of the sentence, choose from ['pooler' , cls']
+max_length: 128 # Tokenizer: `max_length`
+out_dim: 3 # number of classes, automatically dtermined in `main.py`
+
+# training
+batch_size: 8
+lr: 2.0e-05 # learning rate
+cuda: 0  # which cuda device to use
+data: mnli # choose from ['mnli', 'fever', 'qqp']
+drop_out: 0.0
+epochs: 3
+weight_decay: 0.01
+init: gauss0.02 # initializer for MLP, choose from ['xavier', 'gauss0.02']
+max_grad_norm: -1 # above 0: adopt gradient norm clip; -1: diable gradient norm clip
+
+scheduler: warmuplinear # learning rate scheduler
+# choose from [
+  #  constantlr, 
+  #  warmupconstant, 
+  #  warmuplinear, 
+  #  warmupcosine,
+  #  warmupcosinewithhardrestarts 
+  #]
+warmup_proportion: 0.1 
+
